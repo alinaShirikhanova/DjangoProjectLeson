@@ -21,4 +21,5 @@ from todolist.views import index
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('todolist/', include('todolist.urls')),
+    path('taskmanager/', include('taskmanager.urls')),
 ]

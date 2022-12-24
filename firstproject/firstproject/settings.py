@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'todolist.apps.TodolistConfig',
-    'forum.apps.ForumConfig'
+    'forum.apps.ForumConfig',
+    'taskmanager.apps.TaskmanagerConfig'
 ]
 
 MIDDLEWARE = [
