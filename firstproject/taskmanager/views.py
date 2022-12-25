@@ -6,7 +6,5 @@ from taskmanager.models import Task
 
 
 def index(request):
-    template = loader.get_template('taskmanager/index.html')
     tasks = Task.objects.all()
-    context = {'tasks': tasks}
-    return HttpResponse(template.render(context, request))
+    return render(request, 'taskmanager/index.html', {'tasks': tasks})
