@@ -18,8 +18,6 @@ class TaskCreateView(CreateView):
         return context
 
 
-
-
 def index(request):
     tasks = Task.objects.all()
     return render(request, 'taskmanager/index.html', {'tasks': tasks})
@@ -38,3 +36,13 @@ def delete(request, task_id):
     return HttpResponseRedirect('/taskmanager')
 
 
+def edit(request, task_id):
+    task = Task.objects.get(id=task_id)
+    if request.method == 'POST':
+        task.title = request.POST.get('title')
+        task.description = request.POST.get('description')
+        task.category = request.POST.get('category')
+        task.save()
+        return HttpResponseRedirect('/taskmanager')
+    return render(request, 'taskmanager/edit_task.html',
+                  {'task': task})
