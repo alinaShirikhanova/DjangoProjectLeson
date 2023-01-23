@@ -6,6 +6,7 @@ class Task(models.Model):
     description = models.TextField('description', max_length=250)
     creation_time = models.DateTimeField(auto_now_add=True, db_index=True)
     category = models.ForeignKey('Category', null=True, on_delete=models.PROTECT)
+    status = models.BooleanField('status', default=False)
 
     def __str__(self):
         return self.title

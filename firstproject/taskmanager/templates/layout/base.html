@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Главная{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+          integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Задачи</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add' %}">Создать задачу</a>
+                </li>
+                {% for category in categories %}
+                <li>
+                    <a class="nav-link" href="{% url 'by_category' category.pk %}">{{ category.name }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    {% block content %}
+    {% block category_name %}
+    {% endblock %}
+    <h3>Список задач</h3>
+    {% for task in tasks %}
+
+    <div class="{% if task.status %} alert alert-success {% endif %}">
+
+        <h2>{{ task.title }} </h2>
+        <p> {{ task.description }}</p>
+        <a class="btn btn-danger" href="delete/{{ task.id }}">Удалить</a>
+        <a class="btn btn-warning" href="edit/{{ task.id }}">Редактировать</a>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}
+</body>
+</html>

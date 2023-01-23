@@ -3,18 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+          integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
 </head>
 <body>
-<form method="post">
-  <div class="mb-3">
-    <label for="title" class="form-label">Название задачи</label>
-    <input type="email" class="form-control" id="title" aria-describedby="emailHelp">
-  </div>
-  <div class="mb-3">
-    <label for="description" class="form-label">Описание задачи</label>
-    <input type="password" class="form-control" id="description">
-  </div>
-  <button type="submit" class="btn btn-primary">Редактировать</button>
-</form>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Задачи</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add' %}">Создать задачу</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}1">По категориям</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="title" class="form-label">Название задачи</label>
+            <input class="form-control" id="title" aria-describedby="titleHelp"
+                   name="title" value="{{ task.title }}" required>
+            <div id="titleHelp" class="form-text">Введите название задачи</div>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Описание задачи</label>
+            <input class="form-control" name="description" value="{{ task.description }}" id="description" required>
+        </div>
+         <select class="form-select" name="category" aria-label="Default select example">
+             {% for category in categories %}
+             <option selected>{{ category.name }}</option>
+             {% endfor %}
+        </select>
+        <br>
+        <button type="submit" class="btn btn-primary">Редактировать</button>
+    </form>
+</div>
 </body>
 </html>
+
